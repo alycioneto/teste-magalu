@@ -1,0 +1,26 @@
+env
+node_modules
+src/**/*.js
+src/**/*.map
+coverage
+.vscode
+build
+.env
+build.zip
+.yarn-*.log
+yarn-error.log
+
+# Remote - Containers
+.bash_history
+.cache
+.config
+.gitconfig
+.npm
+.ssh
+.vscode-server
+.gitconfig
+.prettierrc
+.DS_Store
+
+# VSCode
+.vscodeignore

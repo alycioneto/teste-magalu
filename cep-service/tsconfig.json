@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "allowJs": true,
+    "checkJs": true,
+    "sourceMap": true,
+    "outDir": "build",
+    "rootDir": "./src",
+    "strict": true,
+    "noImplicitAny": true,
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["@types/*"]
+    },                                        /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
+    // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types"
+    ],
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "lib": [
+    "es5",
+    "es6"
+  ],
+  "include": [
+    "src/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "*.config.js"
+  ]
+}
