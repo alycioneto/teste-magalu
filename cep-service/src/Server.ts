@@ -1,5 +1,5 @@
 import App from './App'
-import { BaseController } from './shared/controller'
+import { BaseController } from './shared/controllers'
 
 const controllers: Array<BaseController> = [];
 
@@ -11,4 +11,3 @@ const controllers: Array<BaseController> = [];
         console.error(error)
     }
 })()
-  

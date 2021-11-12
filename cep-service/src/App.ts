@@ -3,8 +3,8 @@ import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import apiMetrics from 'prometheus-api-metrics'
-import { Environment } from './shared/enum'
-import { BaseController } from './shared/controller/'
+import { Environment } from './shared/enums'
+import { BaseController } from './shared/controllers'
 
 const defaultPort = 3000
 const { NODE_ENV = Environment.DEVELOPMENT, PORT = defaultPort } = process.env

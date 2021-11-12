@@ -3,7 +3,7 @@ import { Request, Response, Router } from 'express'
 import { createValidator } from 'express-joi-validation'
 import HttpStatus from 'http-status-codes'
 
-import { HttpMethods } from '../enum/HttpMethods'
+import { HttpMethods } from '../enums/HttpMethods'
 
 abstract class BaseController {
   public router = Router()
