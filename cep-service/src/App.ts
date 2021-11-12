@@ -29,10 +29,9 @@ class App {
   private initializeMiddlewares() {
     this.app.use(helmet())
     this.app.use(morgan('dev'))
-    this.app.use(compression())
+    // this.app.use(compression())
     this.app.use(express.urlencoded({ extended: true }))
     this.app.use(express.json())
-    this.app.use(express.json({ type: 'application/vnd.api+json' }))
     // this.app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocument))
     this.app.use(apiMetrics())
   }

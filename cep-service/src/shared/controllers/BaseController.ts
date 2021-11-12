@@ -10,7 +10,7 @@ abstract class BaseController {
 
   public path: string
 
-  public validatorConfig = { joi: { allowUnknown: true, abortEarly: false }, passError: true }
+  public validatorConfig = { joi: { allowUnknown: true, abortEarly: false } }
 
   public joi = Joi
 
@@ -64,6 +64,10 @@ abstract class BaseController {
     return this.notFound(res)
   }
 
+  public notFound(res: Response, message?: string) {
+    return this.jsonResponse(res, HttpStatus.NOT_FOUND, message || 'Not found')
+  }
+
   public async execute(req: Request, res: Response, next: Function): Promise<void> {
     try {
       await this.executeByStatusCode(req, res)
@@ -90,8 +94,8 @@ abstract class BaseController {
     return this.jsonResponse(res, HttpStatus.UNAUTHORIZED, message || 'Unauthorized')
   }
 
-  public notFound(res: Response, message?: string) {
-    return this.jsonResponse(res, HttpStatus.NOT_FOUND, message || 'Not found')
+  public badRequest(res: Response, message?: string | object) {
+    return this.jsonResponse(res, HttpStatus.BAD_REQUEST, message || 'Bad request')
   }
 
   public fail(res: Response, error: Error | string) {
@@ -122,11 +126,15 @@ abstract class BaseController {
 
   private setRoute(method: HttpMethods, schema: Schema) {
     const validator = createValidator()
-    validator.headers(schema.headers, this.validatorConfig),
-    validator.body(schema.body, this.validatorConfig),
-    validator.params(schema.params, this.validatorConfig),
-    validator.query(schema.query, this.validatorConfig),
-    (req: Request, res: Response, next: Function) => this.execute(req, res, next)
+
+    this.router[method](
+      this.path,
+      validator.headers(schema.headers, this.validatorConfig),
+      validator.body(schema.body, this.validatorConfig),
+      validator.params(schema.params, this.validatorConfig),
+      validator.query(schema.query, this.validatorConfig),
+      (req: Request, res: Response, next: Function) => this.execute(req, res, next)
+    )
   }
 }
 

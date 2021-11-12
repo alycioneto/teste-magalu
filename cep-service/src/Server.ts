@@ -1,13 +1,11 @@
 import App from './App'
 import { BaseController } from './shared/controllers'
+import { CepController } from './controllers'
 
-const controllers: Array<BaseController> = [];
+const controllers: Array<BaseController> = [
+  new CepController("/cep/:cep")
+];
 
-(() => {
-    try {
-        const app = new App(controllers)
-        app.start()
-    } catch (error) {
-        console.error(error)
-    }
-})()
+const app = new App(controllers)
+app.start()
+

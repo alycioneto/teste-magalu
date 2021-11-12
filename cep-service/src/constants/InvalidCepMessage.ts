@@ -1,1 +1,1 @@
-export const INVALID_POSTAL_CODE_PT_BR = 'CEP Inválido'
+export const INVALID_CEP = 'CEP Inválido'

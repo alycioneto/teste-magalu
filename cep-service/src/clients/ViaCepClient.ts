@@ -1,7 +1,7 @@
 import httpStatus from 'http-status-codes'
 
 import { Request } from '../shared/utils'
-import { INVALID_POSTAL_CODE_PT_BR } from '../constants'
+import { INVALID_CEP } from '../constants'
 import { ViaCepError } from '../errors'
 import { ViaCepResponse } from '../types'
 
@@ -11,7 +11,8 @@ class ViaCepClient {
   private client: Request
 
   constructor() {
-    this.client = new Request(VIACEP_BASE_URL as string)
+    //TODO: add value to env
+    this.client = new Request("https://viacep.com.br/")
   }
 
   public async get(postalCode: string): Promise<ViaCepResponse> {
@@ -21,13 +22,13 @@ class ViaCepClient {
       const { data } = response
 
       if (data.erro) {
-        throw new ViaCepError(INVALID_POSTAL_CODE_PT_BR)
+        throw new ViaCepError(INVALID_CEP)
       }
 
       return data
     } catch (error) {
       if (error.response?.status === httpStatus.BAD_REQUEST) {
-        throw new ViaCepError(INVALID_POSTAL_CODE_PT_BR)
+        throw new ViaCepError(INVALID_CEP)
       }
       throw new ViaCepError(error.message)
     }
