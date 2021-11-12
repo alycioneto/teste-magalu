@@ -7,14 +7,14 @@ import { ViaCepResponse } from '../types'
 
 const { VIACEP_BASE_URL } = process.env
 
-class ViaCepGateway {
+class ViaCepClient {
   private client: Request
 
   constructor() {
     this.client = new Request(VIACEP_BASE_URL as string)
   }
 
-  public async getByPostalCode(postalCode: string): Promise<ViaCepResponse> {
+  public async get(postalCode: string): Promise<ViaCepResponse> {
     const path = `/ws/${postalCode}/json/`
     try {
       const response = await this.client.get(path)
@@ -34,4 +34,4 @@ class ViaCepGateway {
   }
 }
 
-export { ViaCepGateway }
+export { ViaCepClient }
