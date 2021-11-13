@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import apiMetrics from 'prometheus-api-metrics'
 import { Environment } from './shared/enums'
 import { BaseController } from './shared/controllers'
+import { Redis } from './shared/utils'
 
 const defaultPort = 3000
 const { NODE_ENV = Environment.DEVELOPMENT, PORT = defaultPort } = process.env
@@ -23,13 +24,14 @@ class App {
     this.app = express()
 
     this.initializeMiddlewares()
+    this.initializeDataBases()
     this.initializeControllers(controllers)
   }
 
   private initializeMiddlewares() {
     this.app.use(helmet())
     this.app.use(morgan('dev'))
-    // this.app.use(compression())
+    this.app.use(compression())
     this.app.use(express.urlencoded({ extended: true }))
     this.app.use(express.json())
     // this.app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocument))
@@ -40,6 +42,10 @@ class App {
     controllers.forEach((controller: BaseController) => {
       this.app.use('/', controller.router)
     })
+  }
+
+  private initializeDataBases() {
+    Redis.connect()
   }
 
   public start(): void {
