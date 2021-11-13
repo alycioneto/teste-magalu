@@ -1,4 +1,4 @@
-export interface CepServiceresponse {
+export interface CepServiceResponse {
   rua: string,
   bairro: string,
   cidade: string,

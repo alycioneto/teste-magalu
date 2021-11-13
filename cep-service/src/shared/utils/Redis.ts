@@ -24,6 +24,20 @@ class Redis {
   public static getClient(): redis.RedisClient {
     return Redis.client
   }
+
+  public static set<T>(key: string, value: T, maxAge?: number): void {
+    const parsedValue = JSON.stringify(value)
+    Redis.client.set(key, parsedValue)
+    if (maxAge) {
+      Redis.client.expire(key, maxAge)
+    }
+  }
+
+  public static get(key: string): unknown {
+    const cachedData = Redis.client.get(key)
+
+    return cachedData
+  }
 }
 
 export { Redis }
