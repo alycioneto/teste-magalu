@@ -27,10 +27,7 @@ class ViaCepClient {
 
       return data
     } catch (error) {
-      if (error.response?.status === httpStatus.BAD_REQUEST) {
-        throw new ViaCepError(INVALID_CEP)
-      }
-      throw new ViaCepError(error.message)
+      throw new ViaCepError(INVALID_CEP)
     }
   }
 }

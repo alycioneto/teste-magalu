@@ -16,7 +16,6 @@ class CepService {
   private async getCep(cep: string): Promise<CepServiceResponse> {
     try {
       const address = await this.cepClient.get(cep)
-
       return {
         rua: address.logradouro,
         bairro: address.bairro,
@@ -24,7 +23,7 @@ class CepService {
         estado: address.uf
       }
     } catch (error) {
-      throw new CepError(error.message)
+      throw new CepError((error as Error).message)
     }
   }
 
@@ -36,17 +35,17 @@ class CepService {
   }
 
   private async cacheCep(cep: string): Promise<CepServiceResponse> {
-    let cepResponse = Redis.get(cep)
+    let cepResponse = await Redis.get(cep)
     if (!cepResponse) {
       cepResponse = await this.getCep(cep)
-      Redis.set(cep, cepResponse, ONE_DAY_SECONDS)
+      await Redis.set(cep, cepResponse, ONE_DAY_SECONDS)
     }
-    return cepResponse as CepServiceResponse
+    return cepResponse as Promise<CepServiceResponse>
   }
 
   public async get(cep: string) {
     let cepResponse
-    for (let index = cep.length; index > 0; index--) {
+    for (let index = cep.length; index >= 0; index--) {
       try {
         cepResponse = await this.getCepWithFixedCep(cep, index)
         if (cepResponse) {
@@ -55,7 +54,6 @@ class CepService {
       } catch (error) {
         console.error(error)
       }
-
     }
 
     if (!cepResponse) {

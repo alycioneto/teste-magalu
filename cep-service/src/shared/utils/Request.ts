@@ -19,9 +19,7 @@ class Request {
   private getConfig(baseUrl: string): AxiosRequestConfig {
     return {
       baseURL: baseUrl,
-      headers: {
-        common: { 'Content-Type': 'application/json' },
-      },
+      headers: { 'Content-Type': 'application/json' },
     }
   }
 

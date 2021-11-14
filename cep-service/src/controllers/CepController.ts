@@ -4,6 +4,8 @@ import { BaseController, Schema } from '../shared/controllers'
 import { CepService } from '../services'
 import { INVALID_CEP } from '../constants'
 
+const VALID_POSTAL_CODE = /\d{8}/
+
 class CepController extends BaseController {
   private postalCodeService: CepService
 
@@ -17,7 +19,7 @@ class CepController extends BaseController {
 
     try {
       const { cep } = params
-      const address = await this.postalCodeService.getCep(cep as string)
+      const address = await this.postalCodeService.get(cep as string)
 
       return this.ok(res, address)
     } catch (error) {
@@ -27,7 +29,7 @@ class CepController extends BaseController {
 
   public getSchema(): Schema {
     const params = this.joi.object({
-      cep: this.joi.string().required(),
+      cep: this.joi.string().regex(VALID_POSTAL_CODE).required(),
     })
 
     return new Schema(undefined, params)

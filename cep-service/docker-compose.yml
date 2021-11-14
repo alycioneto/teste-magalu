@@ -1,0 +1,17 @@
+version: '3.1'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - redis
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis:alpine
+    platform: linux/amd64
+    restart: "no"
+    ports:
+      - "6379:6379"
+
