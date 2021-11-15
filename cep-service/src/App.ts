@@ -3,6 +3,7 @@ import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import apiMetrics from 'prometheus-api-metrics'
+import Actuator from 'express-actuator'
 import { Environment } from './shared/enums'
 import { BaseController } from './shared/controllers'
 import { Redis } from './shared/utils'
@@ -36,8 +37,9 @@ class App {
     this.app.use(express.urlencoded({ extended: true }))
     this.app.use(express.json())
     this.app.use(auth.initialize())
-    // this.app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocument))
     this.app.use(apiMetrics())
+    this.app.use(Actuator())
+    // this.app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocument))
   }
 
   private initializeControllers(controllers: Array<BaseController>) {
