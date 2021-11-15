@@ -3,14 +3,15 @@ import { Request, Response } from 'express'
 import { BaseController, Schema } from '../shared/controllers'
 import { CepService } from '../services'
 import { INVALID_CEP } from '../constants'
+import { Auth } from '../shared/utils'
 
 const VALID_POSTAL_CODE = /\d{8}/
 
 class CepController extends BaseController {
   private cepService: CepService
 
-  constructor(path: string, cepService: CepService) {
-    super(path)
+  constructor(path: string, cepService: CepService, auth: Auth) {
+    super(path, auth)
     this.cepService = cepService
   }
 

@@ -2,7 +2,7 @@ import Joi from '@hapi/joi'
 import { Request, Response, Router } from 'express'
 import { createValidator } from 'express-joi-validation'
 import HttpStatus from 'http-status-codes'
-
+import { Auth } from '../../shared/utils'
 import { HttpMethods } from '../enums/HttpMethods'
 
 abstract class BaseController {
@@ -14,8 +14,11 @@ abstract class BaseController {
 
   public joi = Joi
 
-  constructor(path: string) {
+  private auth: Auth | undefined
+
+  constructor(path: string, auth?: Auth) {
     this.path = path
+    this.auth = auth
     this.intializeRoute()
   }
 
@@ -126,9 +129,12 @@ abstract class BaseController {
 
   private setRoute(method: HttpMethods, schema: Schema) {
     const validator = createValidator()
-
     this.router[method](
       this.path,
+      this.auth ? this.auth?.authenticate() :
+      (req: Request, res: Response, next: Function) => {
+        return next()
+      },
       validator.headers(schema.headers, this.validatorConfig),
       validator.body(schema.body, this.validatorConfig),
       validator.params(schema.params, this.validatorConfig),

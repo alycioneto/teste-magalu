@@ -6,6 +6,7 @@ import apiMetrics from 'prometheus-api-metrics'
 import { Environment } from './shared/enums'
 import { BaseController } from './shared/controllers'
 import { Redis } from './shared/utils'
+import { Auth } from './shared/utils/'
 
 const defaultPort = 3000
 const { NODE_ENV = Environment.DEVELOPMENT, PORT = defaultPort } = process.env
@@ -17,23 +18,24 @@ class App {
 
   protected nodeEnv: string
 
-  constructor(controllers: Array<BaseController>) {
+  constructor(controllers: Array<BaseController>, auth: Auth) {
     this.nodeEnv = NODE_ENV
     this.port = Number(PORT)
 
     this.app = express()
 
-    this.initializeMiddlewares()
+    this.initializeMiddlewares(auth)
     this.initializeDataBases()
     this.initializeControllers(controllers)
   }
 
-  private initializeMiddlewares() {
+  private initializeMiddlewares(auth: Auth) {
     this.app.use(helmet())
     this.app.use(morgan('dev'))
     this.app.use(compression())
     this.app.use(express.urlencoded({ extended: true }))
     this.app.use(express.json())
+    this.app.use(auth.initialize())
     // this.app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocument))
     this.app.use(apiMetrics())
   }
