@@ -3,11 +3,9 @@ import httpStatus from 'http-status-codes'
 import { Request } from '../shared/utils'
 import { INVALID_CEP } from '../constants'
 import { ViaCepError } from '../errors'
-import { ViaCepResponse } from '../types'
+import { ViaCepResponse, ICepClient } from '../types'
 
-const { VIACEP_BASE_URL } = process.env
-
-class ViaCepClient {
+class ViaCepClient implements ICepClient{
   private client: Request
 
   constructor(viaCepUrl: string) {

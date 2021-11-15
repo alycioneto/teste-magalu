@@ -1,15 +1,14 @@
 import { CepError } from '../errors'
-import { ViaCepClient } from '../clients'
-import { CepServiceResponse } from '../types'
+import { CepServiceResponse, ICepClient } from '../types'
 import { ONE_DAY_SECONDS } from '../constants'
 import { StringUtil } from '../shared/utils'
 import { ICache, ICepService } from '../types'
 
 class CepService implements ICepService {
-  private cepClient: ViaCepClient
+  private cepClient: ICepClient
   private cache: ICache
 
-  constructor(cepClient: ViaCepClient, cache: ICache) {
+  constructor(cepClient: ICepClient, cache: ICache) {
     this.cepClient = cepClient
     this.cache = cache
   }

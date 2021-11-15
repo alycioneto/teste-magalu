@@ -5,7 +5,6 @@ import { CepController } from '../controllers'
 import { CepServiceResponse } from '../types'
 import HttpStatus from 'http-status-codes'
 
-const { VIACEP_BASE_URL = "https://viacep.com.br/" } = process.env
 interface SutTypes {
   sut: CepController
   service: ICepService
