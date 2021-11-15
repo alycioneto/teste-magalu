@@ -7,11 +7,11 @@ import { INVALID_CEP } from '../constants'
 const VALID_POSTAL_CODE = /\d{8}/
 
 class CepController extends BaseController {
-  private postalCodeService: CepService
+  private cepService: CepService
 
-  constructor(path: string) {
+  constructor(path: string, cepService: CepService) {
     super(path)
-    this.postalCodeService = new CepService()
+    this.cepService = cepService
   }
 
   public async get(req: Request, res: Response): Promise<Response> {
@@ -19,7 +19,7 @@ class CepController extends BaseController {
 
     try {
       const { cep } = params
-      const address = await this.postalCodeService.get(cep as string)
+      const address = await this.cepService.get(cep as string)
 
       return this.ok(res, address)
     } catch (error) {

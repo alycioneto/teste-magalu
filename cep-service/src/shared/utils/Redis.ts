@@ -1,9 +1,10 @@
 import redis from 'redis'
 import { promisify } from 'util'
+import { Cache } from '../../types'
 
 const { REDIS_URI, REDIS_PORT } = process.env
 
-class Redis {
+class Redis implements Cache {
   private static client: redis.RedisClient
 
   public static connect(): redis.RedisClient {
@@ -22,19 +23,18 @@ class Redis {
     }
   }
 
-  public static async set<T>(key: string, value: T, maxAge?: number): Promise<void> {
-    const parsedValue = JSON.stringify(value)
+  public async set(key: string, value: string, maxAge?: number): Promise<void> {
     const set = promisify(Redis.client.set).bind(Redis.client)
-    await set(key, parsedValue)
+    await set(key, value)
     if (maxAge) {
       Redis.client.expire(key, maxAge)
     }
   }
 
-  public static async get(key: string): Promise<unknown> {
+  public async get(key: string): Promise<string | null> {
     const get = promisify(Redis.client.get).bind(Redis.client)
     const cachedData = await get(key)
-    return cachedData ? JSON.parse(cachedData) : null
+    return cachedData
   }
 }
 

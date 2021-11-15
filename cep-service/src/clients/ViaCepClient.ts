@@ -10,9 +10,8 @@ const { VIACEP_BASE_URL } = process.env
 class ViaCepClient {
   private client: Request
 
-  constructor() {
-    //TODO: add value to env
-    this.client = new Request("https://viacep.com.br/")
+  constructor(viaCepUrl: string) {
+    this.client = new Request(viaCepUrl)
   }
 
   public async get(postalCode: string): Promise<ViaCepResponse> {
@@ -22,11 +21,13 @@ class ViaCepClient {
       const { data } = response
 
       if (data.erro) {
+        console.log("data.erro", data.erro)
         throw new ViaCepError(INVALID_CEP)
       }
 
       return data
     } catch (error) {
+      console.log(error)
       throw new ViaCepError(INVALID_CEP)
     }
   }

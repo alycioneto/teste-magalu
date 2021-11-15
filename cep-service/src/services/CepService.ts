@@ -5,17 +5,21 @@ import { ViaCepClient } from '../clients'
 import { CepServiceResponse } from '../types'
 import { ONE_DAY_SECONDS } from '../constants'
 import { Redis, StringUtil } from '../shared/utils'
+import { Cache } from '../types'
 
 class CepService {
   private cepClient: ViaCepClient
+  private cache: Cache
 
-  constructor() {
-    this.cepClient = new ViaCepClient()
+  constructor(cepClient: ViaCepClient, cache: Cache) {
+    this.cepClient = cepClient
+    this.cache = cache
   }
 
-  private async getCep(cep: string): Promise<CepServiceResponse> {
+  private async requestCep(cep: string): Promise<CepServiceResponse> {
     try {
       const address = await this.cepClient.get(cep)
+
       return {
         rua: address.logradouro,
         bairro: address.bairro,
@@ -27,42 +31,40 @@ class CepService {
     }
   }
 
-  private async getCepWithFixedCep(cep: string, index: number): Promise<CepServiceResponse> {
-    let cepResponse
-    let cepFixed = index === cep.length ? cep : StringUtil.replaceAt(cep, index)
-    cepResponse = await this.cacheCep(cepFixed)
-    return cepResponse
-  }
-
-  private async cacheCep(cep: string): Promise<CepServiceResponse> {
-    let cepResponse = await Redis.get(cep)
-    if (!cepResponse) {
-      cepResponse = await this.getCep(cep)
-      await Redis.set(cep, cepResponse, ONE_DAY_SECONDS)
-    }
-    return cepResponse as Promise<CepServiceResponse>
-  }
-
-  public async get(cep: string) {
-    let cepResponse
-    for (let index = cep.length; index >= 0; index--) {
-      try {
-        cepResponse = await this.getCepWithFixedCep(cep, index)
-        if (cepResponse) {
-          break
-        }
-      } catch (error) {
-        console.error(error)
+  private updateCepToRetry(cep: string): string {
+    for (let index = cep.length - 1; index >= 0; index--) {
+      const element = cep[index]
+      if(element !== "0") {
+        return StringUtil.replaceAt(cep, index, "0")
       }
     }
-
-    if (!cepResponse) {
-      throw new CepError(INVALID_CEP)
-    }
-
-    return cepResponse
+    return cep
   }
 
+  private async getCep(cep: string): Promise<CepServiceResponse> {
+    try {
+      return await this.requestCep(cep)
+    } catch(error) {
+      const cepToRetry = this.updateCepToRetry(cep)
+      if (cepToRetry !== "00000000") {
+        return await this.getCep(cepToRetry)
+      }
+
+      throw error
+    }
+  }
+
+  public async get(cep: string): Promise<CepServiceResponse> {
+    const cepResponse = await this.cache.get(cep)
+    let cepParsed = cepResponse ? JSON.parse(cepResponse) as CepServiceResponse: null
+
+    if (!cepParsed) {
+      cepParsed = await this.getCep(cep)
+      const cepJson = JSON.stringify(cepParsed)
+      await this.cache.set(cep, cepJson, ONE_DAY_SECONDS)
+    }
+    return cepParsed
+  }
 }
 
 export { CepService }
