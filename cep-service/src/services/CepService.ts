@@ -1,17 +1,15 @@
-import { INVALID_CEP } from './../constants/CepMessages';
-
 import { CepError } from '../errors'
 import { ViaCepClient } from '../clients'
 import { CepServiceResponse } from '../types'
 import { ONE_DAY_SECONDS } from '../constants'
-import { Redis, StringUtil } from '../shared/utils'
-import { Cache } from '../types'
+import { StringUtil } from '../shared/utils'
+import { ICache, ICepService } from '../types'
 
-class CepService {
+class CepService implements ICepService {
   private cepClient: ViaCepClient
-  private cache: Cache
+  private cache: ICache
 
-  constructor(cepClient: ViaCepClient, cache: Cache) {
+  constructor(cepClient: ViaCepClient, cache: ICache) {
     this.cepClient = cepClient
     this.cache = cache
   }

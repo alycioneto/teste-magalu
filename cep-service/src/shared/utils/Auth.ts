@@ -1,7 +1,8 @@
 import passport  from "passport";
 import { Strategy, ExtractJwt } from "passport-jwt"
-import { users } from '../../Users'
+import { users } from '../../services/UserService'
 
+// TODO: passar pro env
 const { jwtSecret = "MyS3cr3tK3Y" } = process.env
 
 class Auth {

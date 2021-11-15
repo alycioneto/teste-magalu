@@ -1,16 +1,16 @@
 import { Request, Response } from 'express'
 
 import { BaseController, Schema } from '../shared/controllers'
-import { CepService } from '../services'
 import { INVALID_CEP } from '../constants'
 import { Auth } from '../shared/utils'
+import { ICepService } from '../types'
 
 const VALID_POSTAL_CODE = /\d{8}/
 
 class CepController extends BaseController {
-  private cepService: CepService
+  private cepService: ICepService
 
-  constructor(path: string, cepService: CepService, auth: Auth) {
+  constructor(path: string, cepService: ICepService, auth?: Auth) {
     super(path, auth)
     this.cepService = cepService
   }

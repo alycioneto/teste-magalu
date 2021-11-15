@@ -21,14 +21,15 @@ class ViaCepClient {
       const { data } = response
 
       if (data.erro) {
-        console.log("data.erro", data.erro)
         throw new ViaCepError(INVALID_CEP)
       }
 
       return data
     } catch (error) {
-      console.log(error)
-      throw new ViaCepError(INVALID_CEP)
+      if (error?.response?.status === httpStatus.BAD_REQUEST) {
+        throw new ViaCepError(INVALID_CEP)
+      }
+      throw new ViaCepError((error as Error ).message)
     }
   }
 }

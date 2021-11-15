@@ -1,3 +1,6 @@
 export * from './ViaCepResponse'
 export * from './CepServiceResponse'
-export * from './Cache'
+export * from './ICache'
+export * from './ICepService'
+export * from './IUser'
+export * from './IUserService'

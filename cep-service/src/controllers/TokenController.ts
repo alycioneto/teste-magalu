@@ -1,30 +1,28 @@
 import { Request, Response } from 'express'
-import { users } from '../Users'
+import { IUserService } from '../types'
 import { BaseController, Schema } from '../shared/controllers'
 import jwt from 'jwt-simple'
 
+//TODO: passar pro env
 const { jwtSecret = "MyS3cr3tK3Y" } = process.env
 
 class TokenController extends BaseController {
+  private userService: IUserService
 
-  constructor(path: string) {
+  constructor(path: string, userService: IUserService) {
     super(path)
+    this.userService = userService
   }
 
   public async post(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body
 
-    if (email && password) {
-      var user = users.find(function(u) {
-        return u.email === email && u.password === password;
-      });
-      if (user) {
-        var payload = {id: user.id};
-        var token = jwt.encode(payload, jwtSecret);
-        return this.ok(res, {token: token})
-      } else {
-        return this.unauthorized(res)
-      }
+    const user = this.userService.find(email, password)
+
+    if (user) {
+      const payload = {id: user.id};
+      const token = jwt.encode(payload, jwtSecret);
+      return this.ok(res, {token: token})
     } else {
       return this.unauthorized(res)
     }

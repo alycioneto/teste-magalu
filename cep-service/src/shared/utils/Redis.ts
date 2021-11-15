@@ -1,12 +1,12 @@
 import redis from 'redis'
 import { promisify } from 'util'
-import { Cache } from '../../types'
+import { ICache } from '../../types'
 
 
 //TODO: add envs
 const { REDIS_URI, REDIS_PORT } = process.env
 
-class Redis implements Cache {
+class Redis implements ICache {
   private static client: redis.RedisClient
 
   public static connect(): redis.RedisClient {
