@@ -1,4 +1,4 @@
-FROM node:14.16.0-alpine as BUILDER
+FROM node:16.13.0-alpine as BUILDER
 
 RUN yarn global add --silent -D \
   typescript

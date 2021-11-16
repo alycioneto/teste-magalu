@@ -23,3 +23,7 @@ clean:
 
 lint:
 	yarn run lint
+
+prod:
+	yarn build
+	yarn start:prod
