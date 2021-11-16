@@ -1,8 +1,8 @@
 class ViaCepError extends Error {
   constructor(message?: string) {
-    super(message)
-    this.name = 'ViaCepError'
+    super(message);
+    this.name = "ViaCepError";
   }
 }
 
-export { ViaCepError }
+export { ViaCepError };

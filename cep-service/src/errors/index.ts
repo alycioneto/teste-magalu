@@ -1,2 +1,2 @@
-export * from './ViaCepError'
-export * from './CepError'
+export * from "./ViaCepError";
+export * from "./CepError";

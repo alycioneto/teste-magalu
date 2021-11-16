@@ -1,5 +1,5 @@
-import { IUser } from './IUser'
+import { IUser } from "./IUser";
 
 export interface IUserService {
-  find(email: string, password: string): IUser | undefined
+  find(email: string, password: string): IUser | undefined;
 }

@@ -1,7 +1,6 @@
 enum Environment {
-    PRODUCTION = 'production',
-    DEVELOPMENT = 'development',
-  }
-  
-export { Environment }
-  
+  PRODUCTION = "production",
+  DEVELOPMENT = "development",
+}
+
+export { Environment };

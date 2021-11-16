@@ -1,2 +1,2 @@
-export { Environment } from './Environment'
-export { HttpMethods } from './HttpMethods'
+export { Environment } from "./Environment";
+export { HttpMethods } from "./HttpMethods";

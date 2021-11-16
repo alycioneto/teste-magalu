@@ -1,1 +1,1 @@
-export const INVALID_CEP = 'CEP Inválido'
+export const INVALID_CEP = "CEP Inválido";

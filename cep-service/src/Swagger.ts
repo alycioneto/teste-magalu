@@ -1,69 +1,69 @@
-import * as Cep from './docs/CepController.Swagger'
+import * as Cep from "./docs/CepController.Swagger";
 
 const swaggerDocument = {
-  openapi: '3.0.1',
+  openapi: "3.0.1",
   info: {
-    version: '1.0.0',
-    title: 'Cep service',
-    description: '',
-    termsOfService: '',
+    version: "1.0.0",
+    title: "Cep service",
+    description: "",
+    termsOfService: "",
     license: {
-      name: 'Apache 2.0',
-      url: 'https://www.apache.org/licenses/LICENSE-2.0.html',
+      name: "Apache 2.0",
+      url: "https://www.apache.org/licenses/LICENSE-2.0.html",
     },
   },
   servers: [
     {
-      url: 'http://localhost:3000',
-      description: 'local server',
+      url: "http://localhost:3000",
+      description: "local server",
     },
   ],
   paths: {
-    ...Cep.getPaths
+    ...Cep.getPaths,
   },
   components: {
-    schemas: { },
+    schemas: {},
     responses: {
       NotFound: {
-        type: 'object',
+        type: "object",
         properties: {
           message: {
-            type: 'string',
-            example: 'Not found',
+            type: "string",
+            example: "Not found",
           },
         },
       },
       BadRequest: {
-        type: 'object',
+        type: "object",
         properties: {
           message: {
-            type: 'string',
-            example: 'Bad request',
+            type: "string",
+            example: "Bad request",
           },
         },
       },
       Unauthorized: {
-        description: 'Unauthorized',
+        description: "Unauthorized",
       },
       ServerError: {
-        type: 'object',
+        type: "object",
         properties: {
           message: {
-            type: 'string',
-            example: 'Server error',
+            type: "string",
+            example: "Server error",
           },
         },
       },
-      ...Cep.getResponses
+      ...Cep.getResponses,
     },
     securitySchemes: {
       apiKey: {
-        type: 'apiKey',
-        name: 'Authorization',
-        in: 'header',
+        type: "apiKey",
+        name: "Authorization",
+        in: "header",
       },
     },
   },
-}
+};
 
-export default swaggerDocument
+export default swaggerDocument;

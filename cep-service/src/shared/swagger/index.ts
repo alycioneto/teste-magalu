@@ -1,1 +1,1 @@
-export * from './Swagger'
+export * from "./Swagger";
