@@ -9,6 +9,8 @@ build
 build.zip
 .yarn-*.log
 yarn-error.log
+error.log
+info.log
 
 # Remote - Containers
 .bash_history
