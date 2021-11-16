@@ -1,0 +1,50 @@
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:22:42.416Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:23:50.800Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:24:16.376Z"}
+{"level":"info","message":"POST token","timestamp":"2021-11-16T04:24:27.010Z"}
+{"level":"error","message":"POST token user not found","timestamp":"2021-11-16T04:24:27.011Z"}
+{"level":"info","message":"POST token","timestamp":"2021-11-16T04:24:40.784Z"}
+{"level":"error","message":"POST token user not found","timestamp":"2021-11-16T04:24:40.785Z"}
+{"level":"info","message":"POST token","timestamp":"2021-11-16T04:24:59.325Z"}
+{"level":"error","message":"POST token user not found","timestamp":"2021-11-16T04:24:59.325Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:25:22.482Z"}
+{"level":"info","message":"POST token","timestamp":"2021-11-16T04:25:26.397Z"}
+{"level":"error","message":"POST token user not found","timestamp":"2021-11-16T04:25:26.398Z"}
+{
+  message: 'Redis Connected',
+  level: 'info',
+  timestamp: '2021-11-16T04:26:22.279Z'
+}
+{
+  level: 'info',
+  message: 'POST token',
+  timestamp: '2021-11-16T04:26:27.600Z'
+}
+{
+  level: 'error',
+  message: 'POST token user not found',
+  timestamp: '2021-11-16T04:26:27.601Z'
+}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:28:36.029Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:30:20.667Z"}
+{"email":"john@mail.com","level":"info","message":"POST token","timestamp":"2021-11-16T04:30:24.546Z"}
+{"email":"john@mail.com","level":"error","message":"POST token user not found","timestamp":"2021-11-16T04:30:24.547Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:31:22.261Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:31:24.092Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:31:53.231Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:32:19.724Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:32:27.785Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:33:06.483Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:33:12.647Z"}
+{"level":"info","message":"Redis Connected","timestamp":"2021-11-16T04:33:19.016Z"}
+{"email":"john@mail.com","level":"info","message":"POST token","timestamp":"2021-11-16T04:33:24.369Z"}
+{"email":"john@mail.com","level":"error","message":"POST token user not found","timestamp":"2021-11-16T04:33:24.370Z"}
+{"email":"john@mail.com","level":"info","message":"POST token","timestamp":"2021-11-16T04:33:24.958Z"}
+{"email":"john@mail.com","level":"error","message":"POST token user not found","timestamp":"2021-11-16T04:33:24.959Z"}
+{"email":"john@mail.com","level":"info","message":"POST token","timestamp":"2021-11-16T04:33:34.575Z"}
+{"email":"john@mail.com","level":"info","message":"POST token ok","timestamp":"2021-11-16T04:33:34.579Z"}
+{"cep":"90220010","level":"info","message":"GET cep","timestamp":"2021-11-16T04:34:14.010Z"}
+{"key":"90220010","level":"info","message":"Cache not found","timestamp":"2021-11-16T04:34:14.013Z"}
+{"cep":"90220010","level":"info","message":"Request ViaCep","timestamp":"2021-11-16T04:34:14.014Z"}
+{"key":"90220010","level":"info","message":"Cache saved","timestamp":"2021-11-16T04:34:14.634Z"}
+{"address":{"bairro":"Floresta","cidade":"Porto Alegre","estado":"RS","rua":"Rua Santo Antônio"},"cep":"90220010","level":"info","message":"GET cep ok","timestamp":"2021-11-16T04:34:14.635Z"}

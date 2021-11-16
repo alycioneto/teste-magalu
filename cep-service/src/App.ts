@@ -4,10 +4,11 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import apiMetrics from 'prometheus-api-metrics'
 import Actuator from 'express-actuator'
+import swaggerui from 'swagger-ui-express'
 import { Environment } from './shared/enums'
 import { BaseController } from './shared/controllers'
-import { Redis } from './shared/utils'
-import { Auth } from './shared/utils/'
+import { Redis, Auth } from './shared/utils'
+import swaggerDocument from './Swagger'
 
 const defaultPort = 3000
 const { NODE_ENV = Environment.DEVELOPMENT, PORT = defaultPort } = process.env
@@ -39,7 +40,7 @@ class App {
     this.app.use(auth.initialize())
     this.app.use(apiMetrics())
     this.app.use(Actuator())
-    // this.app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocument))
+    this.app.use('/docs', swaggerui.serve, swaggerui.setup(swaggerDocument))
   }
 
   private initializeControllers(controllers: Array<BaseController>) {

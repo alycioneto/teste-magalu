@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { IUserService } from '../types'
 import { BaseController, Schema } from '../shared/controllers'
+import { Logger } from '../shared/utils'
 import jwt from 'jwt-simple'
 
 //TODO: passar pro env
@@ -17,13 +18,16 @@ class TokenController extends BaseController {
   public async post(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body
 
+    Logger.info("POST token", { email })
     const user = this.userService.find(email, password)
 
     if (user) {
       const payload = {id: user.id};
       const token = jwt.encode(payload, jwtSecret);
+      Logger.info("POST token ok", { email })
       return this.ok(res, {token: token})
     } else {
+      Logger.error("POST token user not found", { email })
       return this.unauthorized(res)
     }
   }

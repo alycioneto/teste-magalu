@@ -1,6 +1,6 @@
 import httpStatus from 'http-status-codes'
 
-import { Request } from '../shared/utils'
+import { Request, Logger } from '../shared/utils'
 import { INVALID_CEP } from '../constants'
 import { ViaCepError } from '../errors'
 import { ViaCepResponse, ICepClient } from '../types'
@@ -12,9 +12,10 @@ class ViaCepClient implements ICepClient{
     this.client = new Request(viaCepUrl)
   }
 
-  public async get(postalCode: string): Promise<ViaCepResponse> {
-    const path = `/ws/${postalCode}/json/`
+  public async get(cep: string): Promise<ViaCepResponse> {
+    const path = `/ws/${cep}/json/`
     try {
+      Logger.info("Request ViaCep", { cep })
       const response = await this.client.get(path)
       const { data } = response
 
@@ -24,9 +25,11 @@ class ViaCepClient implements ICepClient{
 
       return data
     } catch (error) {
-      if (error?.response?.status === httpStatus.BAD_REQUEST) {
+      if ((error as any).response?.status === httpStatus.BAD_REQUEST) {
+        Logger.error("ViaCep BadRequest", { cep })
         throw new ViaCepError(INVALID_CEP)
       }
+      Logger.error("ViaCep unkwon error", { cep })
       throw new ViaCepError((error as Error ).message)
     }
   }
