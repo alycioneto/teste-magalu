@@ -24,7 +24,7 @@ const Logger = winston.createLogger({
   ],
 });
 
-if (NODE_ENV !== Environment.PRODUCTION) {
+if (NODE_ENV === Environment.DEVELOPMENT) {
   Logger.add(new winston.transports.Console());
 }
 

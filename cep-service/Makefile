@@ -1,6 +1,7 @@
 setup:
 	npm install yarn -g
 	yarn
+	yarn run build
 
 build-container:
 	docker build .
@@ -13,9 +14,6 @@ down:
 
 test:
 	yarn run test
-
-build:
-	yarn run build
 
 clean:
 	rm -rf node_modules
