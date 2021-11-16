@@ -4,3 +4,4 @@ export { StringUtil } from "./String";
 export { Auth } from "./Auth";
 export { Logger } from "./Logger";
 export { Schema } from "./Schema";
+export { Jwt } from "./Jwt";

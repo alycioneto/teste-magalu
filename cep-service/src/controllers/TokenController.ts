@@ -1,12 +1,8 @@
 import { Request, Response } from "express";
-import jwt from "jwt-simple";
 
 import { BaseController, Schema } from "../shared/controllers";
-import { Logger } from "../shared/utils";
+import { Logger, Jwt } from "../shared/utils";
 import { IUserService } from "../types";
-
-// TODO: passar pro env
-const { jwtSecret = "MyS3cr3tK3Y" } = process.env;
 
 class TokenController extends BaseController {
   private userService: IUserService;
@@ -23,8 +19,7 @@ class TokenController extends BaseController {
     const user = this.userService.find(email, password);
 
     if (user) {
-      const payload = { id: user.id };
-      const token = jwt.encode(payload, jwtSecret);
+      const token = Jwt.encode({ id: user.id });
       Logger.info("POST token ok", { email });
       return this.ok(res, { token });
     }

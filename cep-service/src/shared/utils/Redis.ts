@@ -6,7 +6,6 @@ import { ICache } from "../../types";
 
 import { Logger } from ".";
 
-// TODO: add envs
 const { REDIS_URI, REDIS_PORT } = process.env;
 
 class Redis implements ICache {
@@ -16,8 +15,8 @@ class Redis implements ICache {
     try {
       if (!Redis.client?.connected) {
         const options: redis.ClientOpts = {
-          host: "redis",
-          port: 6379,
+          host: REDIS_URI,
+          port: parseInt(REDIS_PORT!, 10),
         };
         Redis.client = redis.createClient(options);
       }

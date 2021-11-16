@@ -2,6 +2,8 @@ import path from "path";
 
 import winston from "winston";
 
+import { Environment } from "../enums";
+
 const { NODE_ENV } = process.env;
 
 const Logger = winston.createLogger({
@@ -22,7 +24,7 @@ const Logger = winston.createLogger({
   ],
 });
 
-if (NODE_ENV !== "production") {
+if (NODE_ENV !== Environment.PRODUCTION) {
   Logger.add(new winston.transports.Console());
 }
 

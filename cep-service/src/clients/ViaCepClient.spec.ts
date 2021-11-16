@@ -6,7 +6,6 @@ import { INVALID_CEP } from "../constants/CepMessages";
 import { ViaCepError } from "../errors/ViaCepError";
 import { ViaCepClient } from "./ViaCepClient";
 
-// TODO: add env
 const { VIACEP_BASE_URL = "https://viacep.com.br/" } = process.env;
 const validPostalCode = "90220010";
 const invalidPostalCode = "80730441";

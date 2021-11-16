@@ -3,8 +3,7 @@ import { Strategy, ExtractJwt } from "passport-jwt";
 
 import { users } from "../../services/UserService";
 
-// TODO: passar pro env
-const { jwtSecret = "MyS3cr3tK3Y" } = process.env;
+const { JWT_SECRET } = process.env;
 
 class Auth {
   constructor() {
@@ -13,9 +12,8 @@ class Auth {
   }
 
   private passportStrategy(): Strategy {
-    // TODO: passar pro env
     const params = {
-      secretOrKey: jwtSecret,
+      secretOrKey: JWT_SECRET,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     };
     const strategy = new Strategy(params, (payload, done) => {

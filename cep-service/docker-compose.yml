@@ -2,6 +2,12 @@ version: '3.1'
 services:
   app:
     build: .
+    environment:
+      - VIACEP_BASE_URL=https://viacep.com.br/
+      - JWT_SECRET=MyS3cr3tK3Y
+      - REDIS_URI=redis
+      - REDIS_PORT=6379
+      - NODE_ENV=development
     volumes:
       - ./src:/usr/src/app/src
     ports:
