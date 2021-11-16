@@ -7,9 +7,11 @@ import { UserService } from "./services/UserService";
 import { BaseController } from "./shared/controllers";
 import { Redis, Auth } from "./shared/utils";
 
+const { VIACEP_BASE_URL } = process.env;
+
 const redis = new Redis();
 
-const cepClient = new ViaCepClient("https://viacep.com.br/");
+const cepClient = new ViaCepClient(VIACEP_BASE_URL!);
 const cepService = new CepService(cepClient, redis);
 const userService = new UserService();
 
