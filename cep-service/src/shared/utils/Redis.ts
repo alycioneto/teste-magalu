@@ -3,8 +3,7 @@ import { promisify } from "util";
 import redis from "redis";
 
 import { ICache } from "../../types";
-
-import { Logger } from ".";
+import { Logger } from "./Logger";
 
 const { REDIS_URI, REDIS_PORT } = process.env;
 

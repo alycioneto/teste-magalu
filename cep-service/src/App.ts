@@ -11,7 +11,7 @@ import { Environment } from "./shared/enums";
 import { Redis, Auth, Logger } from "./shared/utils";
 import swaggerDocument from "./Swagger";
 
-const defaultPort = 3000;
+const defaultPort = "3000";
 const { NODE_ENV = Environment.DEVELOPMENT, PORT = defaultPort } = process.env;
 
 class App {
@@ -23,7 +23,7 @@ class App {
 
   constructor(controllers: Array<BaseController>, auth: Auth) {
     this.nodeEnv = NODE_ENV;
-    this.port = Number(PORT);
+    this.port = parseInt(PORT, 10);
 
     this.app = express();
 

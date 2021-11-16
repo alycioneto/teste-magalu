@@ -1,7 +1,9 @@
-import { ONE_DAY_SECONDS } from "../constants";
+import { ONE_DAY_SECONDS, CEP_ZERO } from "../constants";
 import { CepError } from "../errors";
 import { StringUtil } from "../shared/utils";
 import { CepServiceResponse, ICepClient, ICache, ICepService } from "../types";
+
+const ZERO = "0";
 
 class CepService implements ICepService {
   private cepClient: ICepClient;
@@ -31,8 +33,8 @@ class CepService implements ICepService {
   private updateCepToRetry(cep: string): string {
     for (let index = cep.length - 1; index >= 0; index--) {
       const element = cep[index];
-      if (element !== "0") {
-        return StringUtil.replaceAt(cep, index, "0");
+      if (element !== ZERO) {
+        return StringUtil.replaceAt(cep, index, ZERO);
       }
     }
     return cep;
@@ -43,7 +45,7 @@ class CepService implements ICepService {
       return await this.requestCep(cep);
     } catch (error) {
       const cepToRetry = this.updateCepToRetry(cep);
-      if (cepToRetry !== "00000000") {
+      if (cepToRetry !== CEP_ZERO) {
         const cepResponse = await this.getCep(cepToRetry);
         return cepResponse;
       }
