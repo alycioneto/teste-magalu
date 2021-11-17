@@ -1,7 +1,9 @@
+![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Node](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 # CEP Service
 
 ## Description
-A API to find CEP for magalu test.
+A Node, Typescript and express API to find CEP for magalu test.
 
 # Principles and best practices
 - [Clean code](https://github.com/labs42io/clean-code-typescript)
