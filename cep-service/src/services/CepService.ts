@@ -1,9 +1,7 @@
-import { ONE_DAY_SECONDS, CEP_ZERO } from "../constants";
+import { CEP_CACHE_MAX_AGE_SECONDS, CEP_ZERO } from "../constants";
 import { CepError } from "../errors";
 import { StringUtil } from "../shared/utils";
 import { CepServiceResponse, ICepClient, ICache, ICepService } from "../types";
-
-const ZERO = "0";
 
 class CepService implements ICepService {
   private cepClient: ICepClient;
@@ -13,6 +11,18 @@ class CepService implements ICepService {
   constructor(cepClient: ICepClient, cache: ICache) {
     this.cepClient = cepClient;
     this.cache = cache;
+  }
+
+  public async get(cep: string): Promise<CepServiceResponse> {
+    const cepResponse = await this.cache.get(cep);
+    let cepParsed = cepResponse ? (JSON.parse(cepResponse) as CepServiceResponse) : null;
+
+    if (!cepParsed) {
+      cepParsed = await this.getCep(cep);
+      const cepJson = JSON.stringify(cepParsed);
+      await this.cache.set(cep, cepJson, parseInt(CEP_CACHE_MAX_AGE_SECONDS!, 10));
+    }
+    return cepParsed;
   }
 
   private async requestCep(cep: string): Promise<CepServiceResponse> {
@@ -33,8 +43,8 @@ class CepService implements ICepService {
   private updateCepToRetry(cep: string): string {
     for (let index = cep.length - 1; index >= 0; index--) {
       const element = cep[index];
-      if (element !== ZERO) {
-        return StringUtil.replaceAt(cep, index, ZERO);
+      if (element !== "0") {
+        return StringUtil.replaceAt(cep, index, "0");
       }
     }
     return cep;
@@ -52,18 +62,6 @@ class CepService implements ICepService {
 
       throw error;
     }
-  }
-
-  public async get(cep: string): Promise<CepServiceResponse> {
-    const cepResponse = await this.cache.get(cep);
-    let cepParsed = cepResponse ? (JSON.parse(cepResponse) as CepServiceResponse) : null;
-
-    if (!cepParsed) {
-      cepParsed = await this.getCep(cep);
-      const cepJson = JSON.stringify(cepParsed);
-      await this.cache.set(cep, cepJson, ONE_DAY_SECONDS);
-    }
-    return cepParsed;
   }
 }
 

@@ -8,7 +8,7 @@ GET street, district, city and state from given CEP
 
 **Auth required** : YES
 
-* **Header**: `Authorization: Bearer ${Token}`
+* **Header**: `Authorization: Bearer <ACCESS_TOKEN>`
 
 ## Success Response
 
@@ -38,4 +38,9 @@ For a valid CEP 90220010
 {
     "message": "CEP Inválido"
 }
+```
+
+## Example
+```bash
+$ curl -H "Authorization: Bearer <ACCESS_TOKEN>" http://localhost:3000/cep/90220010
 ```

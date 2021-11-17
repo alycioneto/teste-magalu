@@ -11,6 +11,14 @@ class Auth {
     passport.use(strategy);
   }
 
+  public initialize() {
+    return passport.initialize();
+  }
+
+  public authenticate() {
+    return passport.authenticate("jwt", { session: false });
+  }
+
   private passportStrategy(): Strategy {
     const params = {
       secretOrKey: JWT_SECRET,
@@ -25,14 +33,6 @@ class Auth {
     });
 
     return strategy;
-  }
-
-  public initialize() {
-    return passport.initialize();
-  }
-
-  public authenticate() {
-    return passport.authenticate("jwt", { session: false });
   }
 }
 

@@ -7,7 +7,7 @@ export const users: Array<IUser> = [
 ];
 
 class UserService implements IUserService {
-  find(email: string, password: string): IUser | undefined {
+  public find(email: string, password: string): IUser | undefined {
     return users.find((u) => {
       return u.email === email && u.password === password;
     });

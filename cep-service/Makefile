@@ -3,7 +3,11 @@ setup:
 	yarn
 	yarn run build
 
-build-container:
+setup-test:
+	npm install yarn -g
+	yarn
+
+build-dev-docker-image:
 	docker build .
 
 up:

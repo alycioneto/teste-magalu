@@ -11,7 +11,7 @@ abstract class BaseController {
 
   public path: string;
 
-  public validatorConfig = { joi: { allowUnknown: true, abortEarly: false } };
+  public validatorConfig = { joi: { allowUnknown: true, abortEarly: false }, passError: true };
 
   public joi = Joi;
 
@@ -95,11 +95,11 @@ abstract class BaseController {
   }
 
   public unauthorized(res: Response, message?: string) {
-    return this.jsonResponse(res, HttpStatus.UNAUTHORIZED, message || "Unauthorized");
+    return this.jsonResponse(res, HttpStatus.UNAUTHORIZED, message || { message: "Unauthorized" });
   }
 
   public badRequest(res: Response, message?: string | object) {
-    return this.jsonResponse(res, HttpStatus.BAD_REQUEST, message || "Bad request");
+    return this.jsonResponse(res, HttpStatus.BAD_REQUEST, message || { message: "Bad request" });
   }
 
   public fail(res: Response, error: Error | string) {
@@ -128,6 +128,24 @@ abstract class BaseController {
     return new Schema();
   }
 
+  public async customError(
+    err: any,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    if (err?.error?.isJoi) {
+      const { details } = err.error;
+      const errors = details.map((detail: any) => {
+        return { message: detail.message };
+      });
+
+      res.status(400).json({ errors });
+    } else {
+      next();
+    }
+  }
+
   private setRoute(method: HttpMethods, schema: Schema) {
     const validator = createValidator();
     this.router[method](
@@ -135,12 +153,14 @@ abstract class BaseController {
       this.auth
         ? this.auth?.authenticate()
         : (req: Request, res: Response, next: NextFunction) => {
-            return next();
+            next();
           },
       validator.headers(schema.headers, this.validatorConfig),
       validator.body(schema.body, this.validatorConfig),
       validator.params(schema.params, this.validatorConfig),
       validator.query(schema.query, this.validatorConfig),
+      (err: any, req: Request, res: Response, next: NextFunction) =>
+        this.customError(err, req, res, next),
       (req: Request, res: Response, next: NextFunction) => this.execute(req, res, next)
     );
   }

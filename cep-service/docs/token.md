@@ -51,3 +51,15 @@ Used to collect a Token for a registered User.
     "message": "Unauthorized"
 }
 ```
+
+## Example
+```bash
+$ curl -X POST http://localhost:3000/token -d 'email=john@mail.com&password=john123'
+```
+### Important
+
+This is a real example, because all users are mocked
+
+### User mocked list
+* { id: "1", name: "John", email: "john@mail.com", password: "john123" }
+* { id: "2", name: "Sarah", email: "sarah@mail.com", password: "sarah123" }
