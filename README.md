@@ -7,7 +7,7 @@ A API to find CEP for magalu test.
 - [Clean code](https://github.com/labs42io/clean-code-typescript)
 - Use best practices of [SOLID](https://medium.com/@matheusbessa_44838/princ%C3%ADpios-solid-com-typescript-4f8a9d5d1ef8)
 - Make test always
-- [Considerations](cep-service/docs/consideration.md)
+- [Considerations](cep-service/docs/considerations.md)
 # How to run
 
 ## Production
