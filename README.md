@@ -7,8 +7,8 @@ A API to find CEP for magalu test.
 - [Clean code](https://github.com/labs42io/clean-code-typescript)
 - Use best practices of [SOLID](https://medium.com/@matheusbessa_44838/princ%C3%ADpios-solid-com-typescript-4f8a9d5d1ef8)
 - Make test always
-
-# Installation
+- [Considerations](cep-service/docs/consideration.md)
+# How to run
 
 ## Production
 ```bash
@@ -17,18 +17,27 @@ $ make setup
 # Run the project.
 $ make prod
 ```
+obs: To deploy in production using a container orchestrator like kubernets needs a other docker file with a new configuration.
 ## Development
 ```bash
 # Build a docker container image.
-$ make build-container
+$ make build-dev-docker-image
 # Run container
 $ make up
 ```
 
-# API documentation
-## Open Endpoints
+## Test
+```bash
+# Install yarn and project dependencies
+$ make setup-test
+# Run test
+$ make test
+```
 
-Open endpoints require no Authentication.
+# API documentation
+## Opened Endpoints
+
+Opened endpoints require no Authentication.
 ### Token
 * [Token](cep-service/docs/token.md) : `POST /token`
 
