@@ -38,9 +38,17 @@ $ make test
 ## Opened Endpoints
 
 Opened endpoints require no Authentication.
-### Token
+### Token:
 * [Token](cep-service/docs/token.md) : `POST /token`
 
+### Health:
+* Health: `GET /health`
+
+### Info:
+* Info: `GET /info`
+
+### Metrics:
+* Metrics: `/metrics`
 ## Endpoints that require Authentication
 
 Closed endpoints require a valid Token to be included in the header of the

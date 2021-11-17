@@ -1,5 +1,5 @@
 ## Arquitetura
-A arquitetura da aplicação é dividida em módulos desacoplatos, facilitando a mudança de peças quando necessário ou a inclusão de novas. Como o problema a ser resolvido é simples e permite apenas leitura, não foi necessário a inclusão de um domínio de negócio ou a implementação de alguma execução assíncrona utilizando filas, consumers e producers.
+A arquitetura da aplicação é dividida em módulos desacoplados, facilitando a mudança de peças quando necessário ou a inclusão de novas. Como o problema a ser resolvido é simples e permite apenas leitura, não foi necessário a inclusão de um domínio de negócio ou a implementação de alguma execução assíncrona utilizando filas, consumers e producers.
 
 ## Performance
 Para melhora do tempo de resposta foi implementado um cache para guardar os resultados das chamadas da api de cep. Essa estratégia tembém permite que, caso a api de cep esteja indisponível, consigamos ao menos responder os casos cacheados.
